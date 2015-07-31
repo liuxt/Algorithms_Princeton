@@ -1,8 +1,8 @@
 #### Algorithms Part 1
 ---
- This is a coursera lecture from this [page](http://https://class.coursera.org/algs4partI-008). And the lecurer is professor **Kevin Wayne &amp; Robert Sedgewick** from **Princeton**.
+ This is a coursera lecture from this [page](http://class.coursera.org/algs4partI-008). And the lecurer is professor **Kevin Wayne &amp; Robert Sedgewick** from **Princeton**.
  
-#####  contents
+#####  Contents
 * Lectures  
 
 * slides   
