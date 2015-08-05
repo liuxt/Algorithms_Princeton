@@ -6,7 +6,7 @@
  ************************************************************************/
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-class RandomizedQueue<Item> implements Iterable<Item> {
+public class RandomizedQueue<Item> implements Iterable<Item> {
     private Item[] q;
     private int N = 0;
     public RandomizedQueue()                 // construct an empty randomized queue
@@ -27,7 +27,7 @@ class RandomizedQueue<Item> implements Iterable<Item> {
             throw new java.lang.NullPointerException("the item to enqueue is null");
         }
         if(N == q.length) {
-            q.resize(2 * q.length);
+            resize(2 * q.length);
         }
         q[N++] = item;
     }
@@ -54,6 +54,10 @@ class RandomizedQueue<Item> implements Iterable<Item> {
         Item item = q[r];
         return item; 
     }
+    private int length()
+    {
+        return q.length;
+    }
     private void resize(int capacity)
     {
         assert capacity >= N;
@@ -65,10 +69,51 @@ class RandomizedQueue<Item> implements Iterable<Item> {
     }
     public Iterator<Item> iterator()         // return an independent iterator over items in random order
     {
-         
+        return new ArrayIterator();
+    }
+    private class ArrayIterator implements Iterator<Item>
+    {
+        private int i = 0;
+        private int[] indices;
+        public boolean hasNext()
+        {
+            return i < N;
+        }
+        public void remove()
+        {
+            throw new UnsupportedOperationException();
+        }
+        public ArrayIterator()
+        {
+            indices = new int[N];
+            for(int i = 0; i < N;i++)
+            {
+                indices[i] = i;
+            }            
+            StdRandom.shuffle(indices);
+        }
+        public Item next()
+        {
+            if(!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            Item item = q[indices[i]];
+            i++;
+            return item;
+        }
     }
     public static void main(String[] args)   // unit testing
     {
-
+        RandomizedQueue<String> q = new RandomizedQueue<String>();
+        while(!StdIn.isEmpty()) {
+            String item = StdIn.readString();
+            q.enqueue(item);
+            StdOut.println(q.length());
+        }
+        Iterator<String> it = q.iterator();
+        while(it.hasNext())
+        {
+            StdOut.println(it.next());
+        }
     }
 }

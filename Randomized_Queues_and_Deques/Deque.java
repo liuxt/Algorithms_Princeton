@@ -8,7 +8,7 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-class Deque<Item> implements Iterable<Item> {
+public class Deque<Item> implements Iterable<Item> {
     private int N;
     private Node first;
     private Node last;
@@ -26,7 +26,7 @@ class Deque<Item> implements Iterable<Item> {
     }
     public boolean isEmpty()                 // is the deque empty?
     {
-        return first == null;
+        return N == 0;
     }
     public int size()                        // return the number of items on the deque
     {
@@ -41,8 +41,12 @@ class Deque<Item> implements Iterable<Item> {
         first = new Node();
         first.item = item;
         first.next = oldfirst;
+
         first.prev = null;
-        if(isEmpty())   last = first;
+        if(isEmpty())   
+        {
+            last = first;
+        }
         else    oldfirst.prev = first;
         N++;
     }
@@ -83,7 +87,7 @@ class Deque<Item> implements Iterable<Item> {
         if(isEmpty()) {
             throw new java.util.NoSuchElementException("can't remove the first Node, the deque is empty");
         }
-        Item item = first.item;
+        Item item = last.item;
         if(N == 1) {
             first = null;
             last = null;
@@ -122,6 +126,19 @@ class Deque<Item> implements Iterable<Item> {
     }
     public static void main(String[] args)   // unit testing
     {
+        Deque<String> q = new Deque<String>();
+        int count = 0;
+        StdOut.println(count);
+        while(!StdIn.isEmpty()){
+            String item = StdIn.readString();
+            q.addFirst(item);
+            StdOut.println(count);
+            count++;
+        }
+        while(!q.isEmpty()){
+            String item = q.removeFirst();
+            StdOut.println(item);
+        }
         
     }
 
